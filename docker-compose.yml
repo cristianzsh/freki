@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+  freki-api:
+    build: "./api"
+    image: freki-api
+    container_name: freki_api
+    ports:
+      - "5000:5000"
+    networks:
+      frekinet:
+        ipv4_address: 192.168.1.99
+
+  freki-client:
+    build: "./client"
+    image: freki-client
+    container_name: freki_client
+    depends_on:
+      - freki-api
+    ports:
+      - "80:80"
+    networks:
+      frekinet:
+        ipv4_address: 192.168.1.100
+
+networks:
+  frekinet:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.1.0/24
