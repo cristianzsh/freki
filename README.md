@@ -50,8 +50,8 @@ If you are using Docker, you might want to check the [docker-compose.yml](docker
 #### The hard way
 
 1. Install the [client](client/requirements.txt) and the API [requirements](api/requirements.txt).
-2. Start the API: `cd freki/api && python3 api.py`.
-3. Start the client: `cd freki/client && python3 webapp.py`.
+2. Start the API: `cd freki/api/src && python3 api.py`.
+3. Start the client: `cd freki/client/src && python3 webapp.py`.
 4. Access the Freki client at `127.0.0.1` and the API at `127.0.0.1:5000`.
 
 ## Acknowledgments
