@@ -1,22 +1,19 @@
 body {
-	display: flex;
-	min-height: 100vh;
-	flex-direction: column;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 main {
-	flex: 1 0 auto !important;
-	margin-bottom: 2% !important;
+    flex: 1 0 auto !important;
 }
 
 h1 {
-	font-size: 2em !important;
-	margin: 0 !important;
+    font-size: 2em !important;
+    margin: 0 !important;
 }
 
-h2 {
-	font-size: 1.5em !important;
-}
+h2 { font-size: 1.50em !important; }
 
 h3 { font-size: 1.17em !important; }
 
@@ -44,58 +41,55 @@ h5 { font-size: 0.83em !important; }
 }
 
 .history {
-	width: 30%;
+    width: 30%;
 }
 
 .analysis-options {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .analysis-content {
-	margin-left: 45px;
+    margin-left: 45px;
 }
 
 .card {
-	padding: 10px !important;
-	padding-top: -40px !important;
+    padding: 10px !important;
 }
 
 .page-footer {
-	height: 60px !important;
+    height: 60px !important;
 }
 
 #welcome {
-	display: flex;
+    display: flex;
 }
 
 #file_submission {
-	width: 45%;
+    width: 45%;
 }
 
 #about_freki {
-	float: right;
-	padding-right: 0;
+    float: right;
+    padding-right: 0;
 }
 
 #about_logo {
-	float: right;
-	width: 20%;
-	height: 100%;
-	align-items: center;
+    float: right;
+    width: 20%;
 }
 
 #strings_txt {
-	font-family: "Courier New";
-	background-color: #F7F7F7;
-	color: #000000;
-	height: 100% !important;
-	overflow-y: scroll;
-	white-space: pre;
-	padding: 5px;
-	resize: none;
-	border: none;
+    font-family: "Courier New";
+    background-color: #F7F7F7;
+    color: #000000;
+    height: 100% !important;
+    overflow-y: scroll;
+    white-space: pre;
+    padding: 5px;
+    resize: none;
+    border: none;
 }
 
 #not_found_msg {
-	color: #FF1212;
+    color: #FF1212;
 }
