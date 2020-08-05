@@ -50,6 +50,7 @@ If you are using Docker, you might want to check the [docker-compose.yml](docker
 #### The hard way
 
 1. Install the [client](client/requirements.txt) and the API [requirements](api/requirements.txt).
+    - If running in a Linux environment, make sure `libfuzzy-dev` and `ssdeep` are pre-installed with `apt`: `sudo apt-get install libfuzz-dev ssdeep`
 2. Start the API: `cd freki/api/src && python3 app.py`.
 3. Start the client: `cd freki/client/src && python3 webapp.py`.
 4. Access the Freki client at `127.0.0.1` and the API at `127.0.0.1:5000`.
