@@ -23,8 +23,13 @@ import configparser
 import requests
 
 from flask import Flask, render_template, redirect, request
-from werkzeug import secure_filename
 from database import Database
+
+try:
+    from werkzeug import secure_filename
+except:
+    from werkzeug.utils import secure_filename
+    pass
 
 config = configparser.ConfigParser()
 config.read("config.ini")
