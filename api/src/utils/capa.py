@@ -29,17 +29,18 @@ class Capa():
         TODO: Use the Python 3.x library when available.
         """
 
-        capa_output = subprocess.check_output(["./utils/bin/capa-v1.0.0-linux", "-v", "-j", _file])
-        capa_data = json.loads(capa_output.decode("utf-8"))
         data_parsed = {}
-
-        for k in capa_data["rules"]:
-            try:
+        capa_output = subprocess.check_output(["./utils/bin/capa-v1.0.0-linux", "-v", "-j", _file])
+        try:
+            capa_data = json.loads(capa_output.decode("utf-8"))
+            
+            for k in capa_data["rules"]:
                 data_parsed[k] = {"namespace" : capa_data["rules"][k]["meta"]["namespace"],
                                   "scope" : capa_data["rules"][k]["meta"]["scope"],
                                   "matches" : self.get_list(capa_data["rules"][k]["matches"])}
-            except:
-                pass
+        except:
+            data_parsed = {"Unresolved" : "undefined"}
+            pass
 
         return data_parsed
 
