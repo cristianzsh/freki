@@ -6,14 +6,14 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
     <title>Project Freki - Login</title>
-    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='imgs/logo_light.svg') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='imgs/logos/light.svg') }}">
 </head>
 
 <body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-custom static-top">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <img src="{{ url_for('static', filename='imgs/logo_light.svg') }}" width="50px" height="50px">Project Freki
+                <img id="imglogo" src="{{ url_for('static', filename='imgs/logos/light_full.svg') }}" width="100%" height="50px">
             </a>
         </div>
     </nav>

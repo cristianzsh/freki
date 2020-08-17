@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="freki/app/static/imgs/logo_dark.svg" width="150px" height="150px"/>
+    <img src="freki/app/static/imgs/logos/dark_full_text_bottom.svg" width="200px" height="238px"/>
 </p>
 
 <p align="center">
@@ -54,10 +54,6 @@ Video demo: [https://youtu.be/AW4afoaogt0](https://youtu.be/AW4afoaogt0).
 
 #### Other ways
 If you want to use it locally (e.g., for development), please check our [wiki](https://github.com/crhenr/freki/wiki) for more details.
-
-## Acknowledgments
-
-Thanks to [Flaticon](https://www.flaticon.com/) for the SVG logo.
 
 ## License
 
