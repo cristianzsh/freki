@@ -11,6 +11,8 @@
     </a>
 </p>
 
+---
+
 Freki is a free and open-source malware analysis platform.
 
 ## Goals
