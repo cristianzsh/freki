@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/font-awesome.css') }}">
+    <title>Project Freki</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='imgs/logo_light.svg') }}">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg navbar-custom static-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="{{ url_for('static', filename='imgs/logo_light.svg') }}" width="50px" height="50px">Project Freki
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Upload">
+                        <form action="/scan_file" method="POST" enctype="multipart/form-data">
+                            <div class="upload-icon">
+                                <label for="file-input"><i class="fa fa-upload"></i></label>
+                                <input id="file-input" name="file" type="file" onchange="form.submit()"/>
+                            </div>
+                        </form>
+                    </li>
+                    {% if not current_user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="/login" data-toggle="tooltip" data-placement="bottom" title="Login"><i class="fa fa-user-circle"></i></a></li>
+                        <li class="nav-item"><a class="nav-link" href="/signup" data-toggle="tooltip" data-placement="bottom" title="Sign Up"><i class="fa fa-user-plus"></i></a></li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="/profile" data-toggle="tooltip" data-placement="bottom" title="{{ current_user.username }}"><i class="fa fa-user-circle"></i></a></li>
+                        <li class="nav-item"><a class="nav-link" href="/logout" data-toggle="tooltip" data-placement="bottom" title="Logout"><i class="fa fa-sign-out-alt"></i></a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="card-deck">
+            <div class="card dark-card text-center">
+                <div class="card-body welcome-msg">
+                    <h4 class="card-title">Submissions</h4>
+                    <i class="fa fa-viruses"></i>
+                    <p id="sub-count">{{ sub_count }}</p>
+                </div>
+            </div>
+            <div class="card dark-card welcome-msg cpointer" onclick="window.open('/api','api');">
+                <div class="card-body text-center">
+                    <h4 class="card-title">Explore the API</h4>
+                    <i class="fa fa-cogs"></i>
+                    <p>Create an account and query our API in your projects.</p>
+                </div>
+            </div>
+            <div class="card dark-card welcome-msg cpointer" onclick="window.open('https://github.com/crhenr/freki', 'source');">
+                <div class="card-body text-center">
+                    <h4 class="card-title">Run your own instance</h4>
+                    <i class="fa fa-server"></i>
+                    <p>Get Freki's source code and run it on your server.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card dark-card">
+            <div class="card-body">
+                <span class="zippasswd float-right">ZIP password: <b>infected</b></span>
+                <h3>Latest submissions</h3>
+
+                <form action="/analysis" method="GET" class="row search-form">
+                    <div class="input-group col-md-8">
+                        <input class="form-control py-2" type="search" placeholder="SHA-1" name="sha1" id="search-bar" required/>
+                        <span class="input-group-append">
+                            <button class="btn btn-outline search-btn" type="submit"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </form>
+
+                <div class="row">
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <p class="custom-warning notfound-msg">{{ messages[0] }}</p>
+                        {% endif %}
+                    {% endwith %}
+                    <table class="table table-borderless custom-table table-hover table-responsive-lg">
+                        <thead>
+                            <tr>
+                                <th>SHA1</th>
+                                <th>File name</th>
+                                <th>User</th>
+                                <th>Submit date</th>
+                                <th>Download</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in last_submissions %}
+                            <tr>
+                                <td><a href="/analysis?sha1={{ i.submission.sha1 }}&name={{ i.name }}">{{ i.submission.sha1 }}</a></td>
+                                <td>{{ i.name }}</td>
+                                <td>{{ i.user.username }}</td>
+                                <td>{{ i.sub_date }}</td>
+                                <td align="center"><a href="/file/{{ i.submission.sha1 }}" class="custom-link" data-toggle="tooltip" data-placement="bottom" title="Download sample"><i class="fa fa-download"></i></a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="panel-footer mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h5>About Freki</h5>
+
+                    <p>Freki is a free and open-source malware analysis platform.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Links</h5>
+
+                    <ul>
+                        <li><a href="/api" target="_blank" class="custom-link">API</a></li>
+                        <li><a href="https://github.com/crhenr/freki/wiki" target="_blank" class="custom-link">Wiki</a></li>
+                        <li><a href="https://github.com/crhenr/freki" target="_blank" class="custom-link">GitHub</a></li>
+                        <li><a href="mailto:cristianmsbr@gmail.com" class="custom-link">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.5.1.slim.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+</body>
+</html>

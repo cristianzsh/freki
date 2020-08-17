@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <style>
+    	body {
+    		color: #eceff4;
+    		background: #2e3440 !important;
+            font-weight: bold;
+    	}
+
+        h1 {
+            font-size: 72px;
+            padding: 50px;
+        }
+
+        a { color: #88c0d0 !important }
+    </style>
+    <title>404</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='imgs/logo_light.svg') }}">
+</head>
+
+<body>
+    <main class="container pt-5">
+    	<center>
+    		<a href="/"><img src="{{ url_for('static', filename='imgs/logo_light.svg') }}" width="20%" height="20%"/></a>
+    		<h1>404</h1>
+            <p>Sorry, this page does not exist!</p>
+            <a href="/">[HOME PAGE]</a>
+    	</center>
+    </main>
+</body>
+</html>

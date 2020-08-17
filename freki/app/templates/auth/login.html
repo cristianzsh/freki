@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+    <title>Project Freki - Login</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='imgs/logo_light.svg') }}">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg navbar-custom static-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="{{ url_for('static', filename='imgs/logo_light.svg') }}" width="50px" height="50px">Project Freki
+            </a>
+        </div>
+    </nav>
+
+    <main class="container pt-4">
+        <div class="row">
+            <div class="card dark-card col-md-5 mx-auto">
+                <div class="card-body">
+                    <h4 class="card-title text-center">Login</h4>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <p class="custom-warning">{{ messages[0] }}</p>
+                        {% endif %}
+                    {% endwith %}
+                    <form class="row custom-form" method="POST">
+                        <div class="col-sm">
+                            Username or email
+                            <input type="text" name="user" id="user" placeholder="Please type your username or email" required/>
+                            New password
+                            <input type="password" name="password" id="password" placeholder="Please type your password" required/>
+
+                            <button type="submit" class="btn btn-primary float-right">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5 mx-auto text-center">
+                <a href="/signup" class="custom-link">Sign Up</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="panel-footer mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h5>About Freki</h5>
+
+                    <p>Freki is a free and open-source malware analysis platform.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Links</h5>
+
+                    <ul>
+                        <li><a href="/api" target="_blank" class="custom-link">API</a></li>
+                        <li><a href="https://github.com/crhenr/freki" target="_blank" class="custom-link">Documentation</a></li>
+                        <li><a href="https://github.com/crhenr/freki/wiki" target="_blank" class="custom-link">Wiki</a></li>
+                        <li><a href="https://github.com/crhenr/freki" target="_blank" class="custom-link">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

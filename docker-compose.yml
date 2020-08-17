@@ -1,26 +1,55 @@
 version: '3.7'
+
 services:
-  freki-api:
-    build: "./api"
-    image: freki-api
-    container_name: freki_api
-    ports:
-      - "5000:5000"
+
+  freki:
+    build: ./freki
+    container_name: freki
+    restart: always
+    command: bash -c "/freki/wait_for_mysql.sh && gunicorn -w 5 --timeout 300 -b :8000 run:app"
+    expose:
+      - 8000
+    depends_on:
+      - db
+    environment:
+      FREKI_MYSQL_HOST: "192.168.99.98"
+      FREKI_MYSQL_PASSWORD: "${DB_PASSWORD}"
+      FREKI_SECRET_KEY: "${FREKI_SECRET_KEY}"
+      FREKI_VT_MASTER_KEY: "${VT_MASTER_KEY}"
     networks:
       frekinet:
-        ipv4_address: 192.168.1.99
+        ipv4_address: 192.168.99.99
 
-  freki-client:
-    build: "./client"
-    image: freki-client
-    container_name: freki_client
-    depends_on:
-      - freki-api
+  db:
+    image: mysql:8.0.21
+    container_name: freki_db
+    restart: always
+    command: "--default-authentication-plugin=mysql_native_password"
+    expose:
+      - 3306
+    environment:
+      MYSQL_DATABASE: freki
+      MYSQL_USER: freki
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
+    networks:
+      frekinet:
+        ipv4_address: 192.168.99.98
+
+  nginx:
+    build: ./nginx
+    container_name: freki_nginx
+    restart: always
     ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/certs:/etc/nginx/certs
+    depends_on:
+      - freki
     networks:
       frekinet:
-        ipv4_address: 192.168.1.100
+        ipv4_address: 192.168.99.100
 
 networks:
   frekinet:
@@ -28,4 +57,4 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 192.168.1.0/24
+        - subnet: 192.168.99.100/28

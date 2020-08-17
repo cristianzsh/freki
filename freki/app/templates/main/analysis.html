@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/font-awesome.css') }}">
+    <title>{{ data['file_name'] }} - Project Freki</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='imgs/logo_light.svg') }}">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg navbar-custom static-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="{{ url_for('static', filename='imgs/logo_light.svg') }}" width="50px" height="50px">Project Freki
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Upload">
+                        <form action="/scan_file" method="POST" enctype="multipart/form-data">
+                            <div class="upload-icon">
+                                <label for="file-input"><i class="fa fa-upload"></i></label>
+                                <input id="file-input" name="file" type="file" onchange="form.submit()"/>
+                            </div>
+                        </form>
+                    </li>
+                    {% if not current_user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="/login" data-toggle="tooltip" data-placement="bottom" title="Login"><i class="fa fa-user-circle"></i></a></li>
+                        <li class="nav-item"><a class="nav-link" href="/signup" data-toggle="tooltip" data-placement="bottom" title="Sign Up"><i class="fa fa-user-plus"></i></a></li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="/profile" data-toggle="tooltip" data-placement="bottom" title="{{ current_user.username }}"><i class="fa fa-user-circle"></i></a></li>
+                        <li class="nav-item"><a class="nav-link" href="/logout" data-toggle="tooltip" data-placement="bottom" title="Logout"><i class="fa fa-sign-out-alt"></i></a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="card dark-card">
+            <div class="card-body">
+                <span class="download-span"><a href="/file/{{ data['hashes']['SHA-1'] }}" class="custom-link float-right" data-toggle="tooltip" data-placement="bottom" title="Download sample"><i class="fa fa-download"></i></a></span>
+                <h3>{{ data['file_name'] }}</h3><span class="zippasswd float-right">ZIP password: <b>infected</b></span>
+                <table class="overview-table">
+                    <tr>
+                        <th>Mime type:</th>
+                        <td>{{ data['basic_information']['mime_type'] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Magic:</th>
+                        <td>{{ data['basic_information']['magic'] }}</td>
+                    </tr>
+                    <tr>
+                        <th>SHA-1:</th>
+                        <td>{{ data['hashes']['SHA-1'] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Size:</th>
+                        <td>{{ data['basic_information']['size'] }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="container analysis-container">
+            <div class="col-xs-12">
+                <nav>
+                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-general-tab" data-toggle="tab" href="#nav-general" role="tab" aria-controls="nav-general" aria-selected="true">GENERAL</a>
+                        <a class="nav-item nav-link" id="nav-detection-tab" data-toggle="tab" href="#nav-detection" role="tab" aria-controls="nav-detection" aria-selected="false">DETECTION</a>
+                        <a class="nav-item nav-link" id="nav-sa-tab" data-toggle="tab" href="#nav-sa" role="tab" aria-controls="nav-sa" aria-selected="false">STATIC ANALYSIS</a>
+                        <a class="nav-item nav-link" id="nav-comments-tab" data-toggle="tab" href="#nav-comments" role="tab" aria-controls="nav-comments" aria-selected="false">COMMENTS</a>
+                    </div>
+                </nav>
+
+                <div class="tab-content py-3 px-3 px-sm-0">
+                    <div class="tab-pane fade show active" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab">
+                        <div class="atitle">Hashes</div>
+                        <section>
+                            <table class="table table-borderless custom-table table-hover table-responsive">
+                                {% for key in data['hashes'] %}
+                                <tr>
+                                    <th>{{ key }}</th>
+                                    <td>{{ data['hashes'][key] }}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </section>
+
+                        <div class="atitle">History</div>
+                        <section class="col-md-6">
+                            <table class="table table-borderless custom-table table-hover table-responsive-lg">
+                                <tr>
+                                    <th>First submission:</th>
+                                    <td>{{ history[0] }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Last submission:</th>
+                                    <td>{{ history[1] }}</td>
+                                </tr>
+                            </table>
+                        </section>
+
+                        <div class="atitle">Names</div>
+                        <section>
+                            {% for n in names %}
+                                {{ n }}<br/>
+                            {% endfor %}
+                        </section>
+                    </div>
+
+                    <div class="tab-pane fade" id="nav-detection" role="tabpanel" aria-labelledby="nav-detection-tab">
+                        {% if data['virustotal_detection']['verbose_msg'] == 'Scan finished, information embedded' %}
+                            <div class="atitle">VirusTotal results</div>
+                            <section>
+                                <b>Positives:</b> {{ data['virustotal_detection']['positives'] }}<br/>
+                                <b>Scan date:</b> {{ data['virustotal_detection']['scan_date'] }}
+                                <p><b>Permanent link:</b> <a target="_blank" href="{{ data['virustotal_detection']['permalink'] }}" class="custom-link">{{ data['virustotal_detection']['permalink'] }}</a></p>
+                            </section>
+
+                            <table class="table table-borderless custom-table table-hover table-responsive-lg">
+                                <thead>
+                                    <tr>
+                                        <th>AV</th>
+                                        <th>Malicious</th>
+                                        <th>Result</th>
+                                        <th>Version</th>
+                                        <th>Update</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for key in data['virustotal_detection']['scans'] %}
+                                    <tr>
+                                        <td>{{ key }}</td>
+
+                                        {% if data['virustotal_detection']['scans'][key]['detected'] == True %}
+                                            <td><b class="custom-warning">{{ data['virustotal_detection']['scans'][key]['detected'] }}</b></td>
+                                            <td><b class="custom-warning">{{ data['virustotal_detection']['scans'][key]['result'] }}</b></td>
+                                        {% else %}
+                                            <td>{{ data['virustotal_detection']['scans'][key]['detected'] }}</td>
+                                            <td>{{ data['virustotal_detection']['scans'][key]['result'] }}</td>
+                                        {% endif %}
+                                        <td>{{ data['virustotal_detection']['scans'][key]['version'] }}</td>
+                                        <td>{{ data['virustotal_detection']['scans'][key]['update'] }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <center>
+                                <br/>
+                                <h2>Trying to get VirusTotal results... You might want to reload this page.</h2>
+                                <p>Freki constantly queries the VirusTotal API for reports.</p>
+                                {% if current_user.is_authenticated %}
+                                    Please save your key at <a class="custom-link" href="/profile">your profile</a>.
+                                {% endif %}
+                            </center>
+                        {% endif %}
+                    </div>
+
+                    <div class="tab-pane fade" id="nav-sa" role="tabpanel" aria-labelledby="nav-sa-tab">
+                        {% block content %}
+                            {% if data['basic_information']['mime_type'] == 'application/x-dosexec' %}
+                            <div class="atitle">Summary</div>
+                            <div class="row">
+                                <section class="col-md-6">
+                                    <h4>Product description</h4>
+                                    <table class="table table-borderless custom-table table-hover table-responsive-lg">
+                                        <tr>
+                                            <th>Company name:</th>
+                                            <td>{{ data['pe_info']['summary']['CompanyName'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Product name:</th>
+                                            <td>{{ data['pe_info']['summary']['ProductName'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Original file name:</th>
+                                            <td>{{ data['pe_info']['summary']['OriginalFilename'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Internal name:</th>
+                                            <td>{{ data['pe_info']['summary']['InternalName'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>File description:</th>
+                                            <td>{{ data['pe_info']['summary']['FileDescription'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>File version:</th>
+                                            <td>{{ data['pe_info']['summary']['FileVersion'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Legal copyright:</th>
+                                            <td>{{ data['pe_info']['summary']['LegalCopyright'] }}</td>
+                                        </tr>
+                                    </table>
+                                </section>
+
+                                <section class="col-md-6">
+                                    <h4>Basic information</h4>
+                                    <table class="table table-borderless custom-table table-hover table-responsive-lg">
+                                        <tr>
+                                            <th>Architecture:</th>
+                                            <td>{{ data['pe_info']['summary']['arch'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Imphash:</th>
+                                            <td>{{ data['pe_info']['summary']['imphash'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Compilation date:</th>
+                                            <td>{{ data['pe_info']['summary']['compilation_date'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>EXE:</th>
+                                            <td>{{ data['pe_info']['summary']['is_exe'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>DLL:</th>
+                                            <td>{{ data['pe_info']['summary']['is_dll'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Warnings:</th>
+                                            <td>{{ data['pe_info']['summary']['warnings'] }}</td>
+                                        </tr>
+                                    </table>
+                                </section>
+                            </div>
+
+                            <div class="atitle">DOS header</div>
+                            <section class="col-md-4">
+                                <table class="table table-borderless custom-table table-hover table-responsive-sm">
+                                    <tr>
+                                        <th>Magic number:</th>
+                                        <td>{{ data['pe_info']['dos_header']['e_magic'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Bytes on last page of file:</th>
+                                        <td>{{ data['pe_info']['dos_header']['e_cblp'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Pages in file:</th>
+                                        <td>{{ data['pe_info']['dos_header']['e_cp'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Relocations:</th>
+                                        <td>{{ data['pe_info']['dos_header']['e_crlc'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Size of header:</th>
+                                        <td>{{ data['pe_info']['dos_header']['e_cparhdr'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Min extra paragraphs:</th>
+                                        <td>{{ data['pe_info']['dos_header']['e_minalloc'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Max extra paragraphs:</th>
+                                        <td>{{ data['pe_info']['dos_header']['e_maxalloc'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Initial SS value:</th>
+                                        <td>{{ data['pe_info']['dos_header']['e_ss'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Initial SP value:</th>
+                                        <td>{{ data['pe_info']['dos_header']['e_sp'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Checksum:</th>
+                                        <td>{{ data['pe_info']['dos_header']['e_csum'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Initial IP value:</th>
+                                        <td>{{ data['pe_info']['dos_header']['e_ip'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Initial CS value:</th>
+                                        <td>{{ data['pe_info']['dos_header']['e_cs'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>OEM identifier:</th>
+                                        <td>{{ data['pe_info']['dos_header']['e_oemid'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>OEM information:</th>
+                                        <td>{{ data['pe_info']['dos_header']['e_oeminfo'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Address of NE header:</th>
+                                        <td>{{ data['pe_info']['dos_header']['e_lfanew'] }}</td>
+                                    </tr>
+                                </table>
+                            </section>
+
+                            <div class="atitle">File header</div>
+                            <section class="col-md-6">
+                                <table class="table table-borderless custom-table table-hover table-responsive-lg">
+                                    <tr>
+                                        <th>Architecture:</th>
+                                        <td>{{ data['pe_info']['file_header']['arch'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Time date stamp:</th>
+                                        <td>{{ data['pe_info']['file_header']['time_date_stamp'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Number of sections:</th>
+                                        <td>{{ data['pe_info']['file_header']['number_sections'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Pointer to Symbol Table:</th>
+                                        <td>{{ data['pe_info']['file_header']['pointer_symbol_table'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Number of symbols:</th>
+                                        <td>{{ data['pe_info']['file_header']['number_symbols'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Size of Optional Header:</th>
+                                        <td>{{ data['pe_info']['file_header']['size_optional_header'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Characteristics:</th>
+                                        <td>{{ ', '.join(data['pe_info']['file_header']['characteristics']) }}</td>
+                                    </tr>
+                                </table>
+                            </section>
+
+                            <div class="atitle">Optional header</div>
+                            <section class="col-md-5">
+                                <table class="table table-borderless custom-table table-hover table-responsive-lg">
+                                    <tr>
+                                        <th>Magic</th>
+                                        <td>{{ data['pe_info']['optional_header']['magic'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Image base</th>
+                                        <td>{{ data['pe_info']['optional_header']['image_base'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>File alignment</th>
+                                        <td>{{ data['pe_info']['optional_header']['file_alignment'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Size of image</th>
+                                        <td>{{ data['pe_info']['optional_header']['size_of_image'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>DLL characteristics</th>
+                                        <td>{{ data['pe_info']['optional_header']['dll_characteristics'] }}</td>
+                                    </tr>
+                                </table>
+                            </section>
+
+                            <div class="atitle">Yara matches</div>
+                            <section>
+                                <h5>{{ ', '.join(data['yara']) }}</h5>
+                            </section>
+
+                            <div class="atitle">Sections</div>
+                            <section>
+                                <table class="table table-borderless custom-table table-hover table-responsive-lg">
+                                    <thead>
+                                        <tr>
+                                            <th>Section</th>
+                                            <th>Virtual Address</th>
+                                            <th>Virtual Size</th>
+                                            <th>Pointer to raw data</th>
+                                            <th>Characteristics</th>
+                                            <th>Entropy</th>
+                                            <th>MD5</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for key in data['pe_info']['sections'] %}
+                                        <tr>
+                                            <th>{{ key }}</th>
+                                            <td>{{ data['pe_info']['sections'][key]['vaddress'] }}</td>
+                                            <td>{{ data['pe_info']['sections'][key]['vsize'] }}</td>
+                                            <td>{{ data['pe_info']['sections'][key]['pointer_to_raw'] }}</td>
+                                            <td>{{ data['pe_info']['sections'][key]['characteristics'] }}</td>
+                                            <td>{{ data['pe_info']['sections'][key]['entropy'] }}</td>
+                                            <td>{{ data['pe_info']['sections'][key]['md5'] }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </section>
+
+                            <div class="atitle">Imports</div>
+                            <section>
+                                {% for key in data['pe_info']['imports'] %}
+                                    <p onclick="expand('{{ key }}')" id="{{ key}}_title" class="cpointer font-weight-bold">+ {{ key }}</p>
+                                    <div id="{{ key }}" class="hidden-item" style="display: none;">
+                                        <table class="table table-borderless custom-table table-hover table-responsive-lg">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Address</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for i in data['pe_info']['imports'][key] %}
+                                                <tr>
+                                                    <td>{{ i['name'] }}</td>
+                                                    <td class="font-weight-bold">{{ i['address'] }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% endfor %}
+                            </section>
+
+                            <div class="atitle">Capabilities</div>
+                            <section>
+                                {% for key in data['capa'] %}
+                                <p onclick="expand('{{ key }}')" id="{{ key}}_title" class="cpointer font-weight-bold">+ {{ key }}</p>
+                                <div id="{{ key }}" class="hidden-item" style="display: none;">
+                                    <table class="table table-borderless custom-table table-hover table-responsive-lg">
+                                        <thead>
+                                            <tr>
+                                                <th>Namespace</th>
+                                                <th>Scope</th>
+                                                <th>Matches</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>{{ data['capa'][key]['namespace'] }}</td>
+                                                <td>{{ data['capa'][key]['scope'] }}</td>
+                                                <td class="font-weight-bold">
+                                                    {% for i in data['capa'][key]['matches'] %}
+                                                        {{ i }}<br/>
+                                                    {% endfor %}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {% endfor %}
+                            </section>
+
+                            <div class="atitle">Strings</div>
+                            <section>
+                                <textarea id="strings-txt" class="form-control" rows="20" disabled>{% for st in data['pe_info']['strings']['all'] %}{{ st+'\n' }}{% endfor %}</textarea>
+                                <br/>
+
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <h5 class="font-weight-bold">URLs</h5>
+                                        {% for url in data['pe_info']['strings']['urls'] %}
+                                            {{ url }}<br/>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="col-sm">
+                                        <h5 class="font-weight-bold">IPs:</h5>
+                                        {% for ip in data['pe_info']['strings']['ips'] %}
+                                            {{ ip }}<br/>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </section>
+
+                            <div class="atitle">Data directories</div>
+                            <section>
+                                <table class="table table-borderless custom-table table-hover table-responsive-lg">
+                                    <thead>
+                                        <tr>
+                                            <th>Data directory</th>
+                                            <th>Virtual Address</th>
+                                            <th>Size</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for key in data['pe_info']['optional_header']['data_dir'] %}
+                                        <tr>
+                                            <td class="font-weight-bold">{{ key }}</td>
+                                            <td>{{ data['pe_info']['optional_header']['data_dir'][key]['vaddress'] }}</td>
+                                            <td>{{ data['pe_info']['optional_header']['data_dir'][key]['size'] }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </section>
+                        {% else %}
+                            <center>
+                                <br/>
+                                <h4>Static analysis is available only for PE files for now.</h4>
+                            </center>
+                        {% endif %}
+                        {% endblock content %}
+                    </div>
+
+                    <div class="tab-pane fade" id="nav-comments" role="tabpanel" aria-labelledby="nav-comments-tab">
+                        <div class="atitle">Comments</div>
+                        <section class="row">
+                            <div class="col-sm">
+                                {% for c in comments %}
+                                <div class="card comment-card">
+                                    <div class="card-body">
+                                        <span class="float-right">{{ c.date }}</span>
+                                        <b>{{ c.user.username }}</b>
+                                        {% if current_user.id != c.user.id %}
+                                            <p>{{ c.text }}</p>
+                                        {% else %}
+                                            <form action="/edit_comment/{{ c.id }}" method="POST">
+                                                <textarea class="comment-textarea form-control" name="text" id="{{ c.id }}" disabled>{{ c.text }}</textarea>
+                                                <br/>
+                                                <div class="float-right">
+                                                    <button class="btn btn-success" type="submit" id="save_{{ c.id }}" style="display: none;">Save</button>
+                                                    <button class="btn btn-primary" type="button" id="save_{{ c.id }}" onclick="javascript:enableEdit({{ c.id }})">Edit</button>
+                                                    <button class="btn btn-danger" type="button" id="save_{{ c.id }}" onclick="location.href='/delete_comment/{{ c.id }}';">Delete</button>
+                                                </div>
+                                            </form>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="col-sm">
+                                <form action="/new_comment/{{ data['hashes']['SHA-1'] }}" method="POST">
+                                    <textarea class="comment-textarea form-control" id="comment_text" name="comment_text" placeholder="Write a new comment." required></textarea>
+                                    <div class="float-right">
+                                        <button type="submit" class="btn btn-success">Comment</button>
+                                    </div>
+                                </form>
+                                {% with messages = get_flashed_messages() %}
+                                    {% if messages %}
+                                        <p class="custom-warning">{{ messages[0] }}</p>
+                                    {% endif %}
+                                {% endwith %}
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="panel-footer mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h5>About Freki</h5>
+
+                    <p>Freki is a free and open-source malware analysis platform.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Links</h5>
+
+                    <ul>
+                        <li><a href="/api" target="_blank" class="custom-link">API</a></li>
+                        <li><a href="https://github.com/crhenr/freki/wiki" target="_blank" class="custom-link">Wiki</a></li>
+                        <li><a href="https://github.com/crhenr/freki" target="_blank" class="custom-link">GitHub</a></li>
+                        <li><a href="mailto:cristianmsbr@gmail.com" class="custom-link">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.5.1.slim.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+
+        function expand(id) {
+            var x = document.getElementById(id);
+            if (x.style.display === "none") {
+                x.style.display = "block";
+                document.getElementById(id + "_title").innerHTML = "− " + id;
+            } else {
+                x.style.display = "none";
+                document.getElementById(id + "_title").innerHTML = "+ " + id;
+            }
+        }
+
+        function enableEdit(elem){
+            document.getElementById(elem).disabled = false;
+            var x = document.getElementById("save_" + elem);
+            if (x.style.display === "none") {
+                x.style.display = "inline";
+            } else {
+                x.style.display = "none";
+                document.getElementById(elem).disabled = true;
+            }
+        }
+    </script>
+</body>
+</html>
