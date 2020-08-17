@@ -28,8 +28,14 @@ Freki is a free and open-source malware analysis platform.
 - VirusTotal API queries.
 - Static analysis of PE files (headers, sections, imports, capabilities, and strings).
 - Pattern matching with Yara.
+- Web interface and REST API.
+- User management.
+- Community comments.
+- Download samples.
 
-Open an issue to suggest new features. All contributions are welcome.
+Check our [wiki](https://github.com/crhenr/freki/wiki) for more details.
+
+Open an [issue](https://github.com/crhenr/freki/issues) to suggest new features. All contributions are welcome.
 
 ## How to get the source code
 `git clone https://github.com/crhenr/freki.git`
@@ -40,27 +46,14 @@ Video demo: [https://youtu.be/AW4afoaogt0](https://youtu.be/AW4afoaogt0).
 
 ## Running
 
-#### Before you start
-
-Please **change the default secret keys** in [api/src/config.ini](api/src/config.ini) and [client/src/config.ini](client/src/config.ini). Other tweaks can be done in the same files.
-
-If you want Freki to query VirusTotal for information, add your [VirusTotal API key](https://developers.virustotal.com/reference) in [api/src/config.ini](api/src/config.ini).
-
-If you are using Docker, you might want to check the [docker-compose.yml](docker-compose.yml) file.
-
-#### The easy way
-
+#### The easy way: Docker
 1. Install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/).
-2. `cd freki && docker-compose up`.
-3. Access the Freki client at `127.0.0.1` and the API at `127.0.0.1:5000`.
+2. Edit the [.env](.env) file.
+3. If you are going to use it in production, edit [freki.conf](nginx/freki.conf) to enable HTTPS.
+4. Run `docker-compose up` or `make`.
 
-#### The hard way
-
-1. Install the [client](client/requirements.txt) and the API [requirements](api/requirements.txt).
-    - If running in a Linux environment, make sure `libfuzzy-dev` and `ssdeep` are pre-installed with `apt`: `sudo apt-get install libfuzz-dev ssdeep`
-2. Start the API: `cd freki/api/src && python3 app.py`.
-3. Start the client: `cd freki/client/src && python3 webapp.py`.
-4. Access the Freki client at `127.0.0.1` and the API at `127.0.0.1:5000`.
+#### Other ways
+If you want to use it locally (e.g., for development), please check our [wiki](https://github.com/crhenr/freki/wiki) for more details.
 
 ## Acknowledgments
 
