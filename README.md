@@ -1,12 +1,19 @@
 <p align="center">
-    <img src="client/src/static/imgs/logo_dark.svg" width="150px" height="150px"/>
+    <img src="freki/app/static/imgs/logo_dark.svg" width="150px" height="150px"/>
+</p>
+
+<p align="center">
+    <a href="https://www.python.org/">
+        <img src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg"/>
+    </a>
+    <a href="https://www.gnu.org/licenses/agpl-3.0.html">
+        <img src="https://img.shields.io/badge/License-AGPL%20v3-blue.svg"/>
+    </a>
 </p>
 
 # Project Freki
 
-Freki is a self-hosted malware analysis tool.
-
-[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+Freki is a free and open-source malware analysis platform.
 
 ## Goals
 
