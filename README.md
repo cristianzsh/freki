@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="freki/app/static/imgs/logos/dark_full_text_bottom.svg" width="200px" height="238px"/>
+    <img src="freki/app/static/imgs/logos/dark_full.svg"/>
 </p>
 
 <p align="center">
