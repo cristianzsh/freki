@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Overview and current features &#8212; Project Freki v1.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="User documentation" href="../user/index.html" />
+    <link rel="prev" title="Welcome to Project Freki" href="../index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo_dark.svg" alt="Logo"/>
+            </a></p>
+<h1 class="logo"><a href="../index.html">Project Freki</a></h1>
+
+
+
+<p class="blurb">Malware analysis platform</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=crhenr&repo=freki&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../index.html" title="previous chapter">Welcome to Project Freki</a></li>
+      <li>Next: <a href="../user/index.html" title="next chapter">User documentation</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="overview-and-current-features">
+<h1>Overview and current features<a class="headerlink" href="#overview-and-current-features" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-is-freki">
+<h2>What is Freki?<a class="headerlink" href="#what-is-freki" title="Permalink to this headline">¶</a></h2>
+<p>Freki is a free and open-source malware analysis platform. It was built to facilitate malware analysis and reverse engineering.</p>
+<p>It also provides a REST API, so you can query and use it in different projects.</p>
+</div>
+<div class="section" id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<p>The current version supports the following features:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Hash extraction</dt><dd><ul>
+<li><p>MD5, SHA-1, SHA-256, SHA-384, SHA-512, CRC32, and SSDEEP.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>VirusTotal API queries</dt><dd><ul>
+<li><p>AV results.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Static analysis of PE samples</dt><dd><ul>
+<li><p>Headers, sections, imports, capabilities, and strings.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Pattern matching with Yara</p></li>
+<li><dl class="simple">
+<dt>User management</dt><dd><ul>
+<li><p>Account creation for sample submissions and API usage.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Community comments</dt><dd><ul>
+<li><p>Users can comment and discuss about samples.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Download samples</dt><dd><ul>
+<li><p>All samples are available for free.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="who-can-use-it">
+<h2>Who can use it?<a class="headerlink" href="#who-can-use-it" title="Permalink to this headline">¶</a></h2>
+<p>Anyone who wants a malware analysis tool running locally or publicly. You can use it with a small group of friends or make your instance available to all world.</p>
+</div>
+<div class="section" id="what-is-the-difference-to-virustotal">
+<h2>What is the difference to VirusTotal?<a class="headerlink" href="#what-is-the-difference-to-virustotal" title="Permalink to this headline">¶</a></h2>
+<p>Although VirusTotal and is a great tool for analyzing different files, it has some limitations. For example, you need to pay for downloading samples.</p>
+<p>Another great tool is MalwareBazaar, since it fills some limitations of VirusTotal. However, you can not run it on your private machine or add new features.</p>
+<p>It is worth noting that Freki is not a replacement of these tools (only if you want), but a collaborative alternative that was very inspired by them.</p>
+</div>
+<div class="section" id="how-can-i-have-my-own-instance">
+<h2>How can I have my own instance?<a class="headerlink" href="#how-can-i-have-my-own-instance" title="Permalink to this headline">¶</a></h2>
+<p>Running Freki is very easy, you can do it via Docker or installing everything by hand. Please check the <a class="reference internal" href="../admin/index.html"><span class="doc">administrator documentation</span></a> for more details.</p>
+</div>
+<div class="section" id="technology">
+<h2>Technology<a class="headerlink" href="#technology" title="Permalink to this headline">¶</a></h2>
+<p>Freki currently uses the following technology to get everything running:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Front-end</dt><dd><ul>
+<li><p><a class="reference external" href="https://getbootstrap.com/">Bootstrap</a>: for easy and responsive interface development</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Back-end</dt><dd><ul>
+<li><p><a class="reference external" href="https://www.python.org/">Python</a>: main programming language</p></li>
+<li><p><a class="reference external" href="https://flask.palletsprojects.com/en/1.1.x/">Flask</a>: lightweight web application framework</p></li>
+<li><p><a class="reference external" href="https://www.sqlalchemy.org/">SQLAlchemy</a>: Python SQL toolkit</p></li>
+<li><p><a class="reference external" href="https://gunicorn.org/">Gunicorn</a>: Python WSGI HTTP Server</p></li>
+<li><p><a class="reference external" href="https://developers.virustotal.com/reference">VirusTotal API</a>: for querying the detection reports</p></li>
+<li><p><a class="reference external" href="https://yara.readthedocs.io/en/stable/yarapython.html">Yara</a>: for pattern matching</p></li>
+<li><p><a class="reference external" href="https://github.com/erocarrera/pefile">pefile</a>: to parse information about PE files</p></li>
+<li><p><a class="reference external" href="https://github.com/fireeye/capa">capa</a>: to identify capabilities in PE files</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Infrastructure</dt><dd><ul>
+<li><p><a class="reference external" href="https://docs.docker.com/">Docker</a>: for easy deployment through containers</p></li>
+<li><p><a class="reference external" href="https://nginx.org/en/">Nginx</a>: preferred web server</p></li>
+<li><p><a class="reference external" href="https://mariadb.org/">MariaDB</a>: for storing information about samples</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>You can check all Python requirements <a class="reference external" href="https://github.com/crhenr/freki/blob/master/freki/requirements.txt">here</a>.</p>
+</div>
+<div class="section" id="screenshots">
+<h2>Screenshots<a class="headerlink" href="#screenshots" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-default" id="id1">
+<img alt="Home page" src="../_images/home.png" />
+<p class="caption"><span class="caption-text">Home page</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id2">
+<img alt="Sign up page" src="../_images/signup.png" />
+<p class="caption"><span class="caption-text">Sign up page</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id3">
+<img alt="Analysis" src="../_images/analysis_1.png" />
+<p class="caption"><span class="caption-text">Analysis page: General information</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id4">
+<img alt="Analysis" src="../_images/analysis_2.png" />
+<p class="caption"><span class="caption-text">Analysis page: VirusTotal detection</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id5">
+<img alt="Analysis" src="../_images/analysis_3.png" />
+<p class="caption"><span class="caption-text">Analysis page: Static analysis</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id6">
+<img alt="Analysis" src="../_images/analysis_4.png" />
+<p class="caption"><span class="caption-text">Analysis page: Static analysis</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id7">
+<img alt="Analysis" src="../_images/analysis_5.png" />
+<p class="caption"><span class="caption-text">Analysis page: Static analysis</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id8">
+<img alt="Analysis" src="../_images/analysis_6.png" />
+<p class="caption"><span class="caption-text">Community comments</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id9">
+<img alt="Profile" src="../_images/profile.png" />
+<p class="caption"><span class="caption-text">Profile page</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Cristian Souza.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

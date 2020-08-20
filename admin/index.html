@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administrator documentation &#8212; Project Freki v1.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Running with Docker" href="run-docker.html" />
+    <link rel="prev" title="Basic usage" href="../user/basic-usage.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo_dark.svg" alt="Logo"/>
+            </a></p>
+<h1 class="logo"><a href="../index.html">Project Freki</a></h1>
+
+
+
+<p class="blurb">Malware analysis platform</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=crhenr&repo=freki&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../user/basic-usage.html" title="previous chapter">Basic usage</a></li>
+      <li>Next: <a href="run-docker.html" title="next chapter">Running with Docker</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="administrator-documentation">
+<h1>Administrator documentation<a class="headerlink" href="#administrator-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="run-docker.html">Running with Docker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="run-docker.html#install-docker-and-docker-compose">1. Install Docker and Docker Compose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run-docker.html#clone-freki-s-latest-version">2. Clone Freki’s latest version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run-docker.html#edit-the-env-configuration-file">3. Edit the <code class="docutils literal notranslate"><span class="pre">.env</span></code> configuration file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run-docker.html#enable-https">4. Enable HTTPS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run-docker.html#run-freki">5. Run Freki!</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="run-steps.html">Step by step installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="run-steps.html#install-packages">1. Install packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run-steps.html#create-a-database-user-for-freki">2. Create a database user for Freki</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run-steps.html#create-a-folder-to-store-the-uploaded-samples">3. Create a folder to store the uploaded samples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run-steps.html#clone-freki-s-latest-version">4. Clone Freki’s latest version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run-steps.html#create-and-start-a-new-virtualenv">5. Create and start a new virtualenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run-steps.html#install-the-python-requirements">6. Install the Python requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run-steps.html#export-the-required-environment-variables">7. Export the required environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run-steps.html#run-freki">8. Run Freki!</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nginx.html">Configuring Nginx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systemd-service.html">Creating a systemd service unit</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Cristian Souza.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

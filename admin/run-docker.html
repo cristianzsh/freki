@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Running with Docker &#8212; Project Freki v1.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Step by step installation" href="run-steps.html" />
+    <link rel="prev" title="Administrator documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo_dark.svg" alt="Logo"/>
+            </a></p>
+<h1 class="logo"><a href="../index.html">Project Freki</a></h1>
+
+
+
+<p class="blurb">Malware analysis platform</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=crhenr&repo=freki&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Administrator documentation</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Administrator documentation</a></li>
+      <li>Next: <a href="run-steps.html" title="next chapter">Step by step installation</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="running-with-docker">
+<h1>Running with Docker<a class="headerlink" href="#running-with-docker" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="install-docker-and-docker-compose">
+<h2>1. Install Docker and Docker Compose<a class="headerlink" href="#install-docker-and-docker-compose" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt>Follow these instructions:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://docs.docker.com/get-docker/">Docker</a></p></li>
+<li><p><a class="reference external" href="https://docs.docker.com/compose/install/">Docker Compose</a></p></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="clone-freki-s-latest-version">
+<h2>2. Clone Freki’s latest version<a class="headerlink" href="#clone-freki-s-latest-version" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/crhenr/freki.git
+</pre></div>
+</div>
+</div>
+<div class="section" id="edit-the-env-configuration-file">
+<h2>3. Edit the <code class="docutils literal notranslate"><span class="pre">.env</span></code> configuration file<a class="headerlink" href="#edit-the-env-configuration-file" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> freki
+$ vi .env
+<span class="c1"># Instance secret key</span>
+<span class="nv">FREKI_SECRET_KEY</span><span class="o">=</span>ChangeThis
+
+<span class="c1"># VT master key, used in case the user did not provide his key</span>
+<span class="nv">VT_MASTER_KEY</span><span class="o">=</span>VirusTotalMasterKey
+
+<span class="c1"># MySQL password for the Freki and root users</span>
+<span class="nv">DB_PASSWORD</span><span class="o">=</span>SecretPassword
+<span class="nv">DB_ROOT_PASSWORD</span><span class="o">=</span>AnotherSecretPassword
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>FREKI_SECRET_KEY</strong>: The secret key is needed to keep the client-side sessions secure. You can use Python to generate a random key:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">urandom</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span><span class="o">.</span><span class="n">hex</span><span class="p">())</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>VT_MASTER_KEY</strong>: When a file is submitted, Freki first tries to use the user’s key. However, users may not have a VirusTotal (VT) API key. In this case, Freki tries to query VT with the administrator’s key. You can leave this field blank, but you will depend exclusively on the goodwill of users.</p></li>
+</ul>
+<p>NOTE: By default, Freki queries VT for non-analyzed samples every 5 minutes.</p>
+<ul class="simple">
+<li><p><strong>DB_PASSWORD</strong>: The MySQL password for the freki user.</p></li>
+<li><p><strong>DB_ROOT_PASSWORD</strong>: The MySQL root password.</p></li>
+</ul>
+<p>You are encouraged to check the docker-compose.yml file for additional tweaks.</p>
+</div>
+<div class="section" id="enable-https">
+<h2>4. Enable HTTPS<a class="headerlink" href="#enable-https" title="Permalink to this headline">¶</a></h2>
+<p>At this point, you should be able to start Freki. However, a good practice (especially if you are going to make your instance public) is to enable HTTPS.</p>
+<p>You must move your certificate and private key to a <code class="docutils literal notranslate"><span class="pre">nginx/certs</span></code> folder so that Docker Compose can mount it inside the container at <code class="docutils literal notranslate"><span class="pre">/etc/nginx/certs</span></code>.</p>
+<p>After that, you need to edit the <code class="docutils literal notranslate"><span class="pre">nginx/freki.conf</span></code> to something like this:</p>
+<div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">server</span> <span class="p">{</span>
+    <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
+    <span class="kn">server_name</span> <span class="mi">192</span><span class="s">.168.99.100</span><span class="p">;</span>
+
+    <span class="kn">return</span> <span class="mi">301</span> <span class="s">https://</span><span class="nv">$host$request_uri</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">server</span> <span class="p">{</span>
+    <span class="kn">listen</span> <span class="mi">443</span> <span class="s">ssl</span><span class="p">;</span>
+    <span class="kn">server_name</span> <span class="mi">192</span><span class="s">.168.99.100</span><span class="p">;</span>
+    <span class="kn">ssl_certificate</span> <span class="s">/etc/nginx/certs/fullchain.pem</span><span class="p">;</span>
+    <span class="kn">ssl_certificate_key</span> <span class="s">/etc/nginx/certs/privkey.pem</span><span class="p">;</span>
+
+    <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
+        <span class="kn">proxy_pass</span> <span class="s">http://freki:8000</span><span class="p">;</span>
+
+        <span class="kn">proxy_set_header</span> <span class="s">Host</span> <span class="nv">$host</span><span class="p">;</span>
+        <span class="kn">proxy_set_header</span> <span class="s">X-Real-IP</span> <span class="nv">$remote_addr</span><span class="p">;</span>
+        <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-For</span> <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+        <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-Proto</span> <span class="nv">$scheme</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="run-freki">
+<h2>5. Run Freki!<a class="headerlink" href="#run-freki" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ make build
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ docker-compose up -d
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Cristian Souza.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
