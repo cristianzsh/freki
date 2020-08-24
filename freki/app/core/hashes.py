@@ -19,7 +19,7 @@
 
 import hashlib
 import zlib
-import ssdeep
+import pydeep
 
 class Hashes():
     """Calculates different hashes."""
@@ -105,4 +105,4 @@ class Hashes():
     def get_ssdeep(file_bytes):
         """Returns the SSDEEP."""
 
-        return ssdeep.hash(file_bytes)
+        return pydeep.hash_buf(file_bytes).decode()
