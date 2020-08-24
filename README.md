@@ -33,7 +33,7 @@ Freki is a free and open-source malware analysis platform.
 - Community comments.
 - Download samples.
 
-Check our [wiki](https://github.com/crhenr/freki/wiki) for more details.
+Check our [online documentation](https://crhenr.github.io/freki) for more details.
 
 Open an [issue](https://github.com/crhenr/freki/issues) to suggest new features. All contributions are welcome.
 
@@ -53,7 +53,7 @@ Video demo: [https://youtu.be/AW4afoaogt0](https://youtu.be/AW4afoaogt0).
 4. Run `docker-compose up` or `make`.
 
 #### Other ways
-If you want to use it locally (e.g., for development), please check our [wiki](https://github.com/crhenr/freki/wiki) for more details.
+If you want to use it locally (e.g., for development), please check our [online documentation](https://crhenr.github.io/freki) for more details.
 
 ## License
 
