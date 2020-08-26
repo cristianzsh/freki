@@ -102,7 +102,7 @@
                                 <td>{{ i.name }}</td>
                                 <td>{{ i.user.username }}</td>
                                 <td>{{ i.sub_date }}</td>
-                                <td align="center"><a href="/file/{{ i.submission.sha1 }}" class="custom-link" data-toggle="tooltip" data-placement="bottom" title="Download sample"><i class="fa fa-download"></i></a></td>
+                                <td align="center"><a href="/file/{{ i.submission.sha1 }}/{{ i.submission.sha1 }}.zip" class="custom-link" data-toggle="tooltip" data-placement="bottom" title="Download sample"><i class="fa fa-download"></i></a></td>
                             </tr>
                             {% endfor %}
                         </tbody>

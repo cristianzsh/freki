@@ -32,6 +32,7 @@ from app.models import Comment, Log, Submission
 from app.core.pe import PE
 from app.core.strings import Strings
 from app.core.capa import Capa
+from app.core.foremost import Foremost
 from app.core.yaraanalysis import YaraAnalysis
 from app.core.hashes import Hashes
 from app.core.virustotal import VirusTotal
@@ -53,8 +54,7 @@ def get_file(path):
     """Returns the sample by its SHA-1."""
 
     return send_from_directory(app.config["SAMPLES_DIR"],
-                               "{}/{}.zip".format(path, path),
-                               as_attachment=True)
+                               path, as_attachment=True)
 
 @web.route("/scan_file", methods=["POST"])
 @login_required
@@ -101,10 +101,12 @@ def scan_file():
         pe_file = PE(contents)
         pe_info = pe_file.get_all()
         capa_data = Capa().analyze(file_path)
+        foremost_data = Foremost().analyze(file_path)
         pe_info["strings"] = Strings("iso-8859-1", file_path).get()
 
         data["pe_info"] = pe_info
         data["capa"] = capa_data
+        data["foremost"] = foremost_data
 
     # Log the submission and zip the sample.
     save_submission(data, current_user.id)

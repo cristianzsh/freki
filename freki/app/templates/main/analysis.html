@@ -43,7 +43,7 @@
     <main class="container">
         <div class="card dark-card">
             <div class="card-body">
-                <span class="download-span"><a href="/file/{{ data['hashes']['SHA-1'] }}" class="custom-link float-right" data-toggle="tooltip" data-placement="bottom" title="Download sample"><i class="fa fa-download"></i></a></span>
+                <span class="download-span"><a href="/file/{{ data['hashes']['SHA-1'] }}/{{ data['hashes']['SHA-1'] }}.zip" class="custom-link float-right" data-toggle="tooltip" data-placement="bottom" title="Download sample"><i class="fa fa-download"></i></a></span>
                 <h3>{{ data['file_name'] }}</h3><span class="zippasswd float-right">ZIP password: <b>infected</b></span>
                 <table class="overview-table">
                     <tr>
@@ -361,6 +361,22 @@
                             <div class="atitle">Yara matches</div>
                             <section>
                                 <h5>{{ ', '.join(data['yara']) }}</h5>
+                            </section>
+
+                            <div class="atitle">Foremost</div>
+                            <section class="col-md-6">
+                                <table class="table table-borderless custom-table table-hover table-responsive-lg">
+                                    <tr>
+                                        <th>File</th>
+                                        <th>Size</th>
+                                    </tr>
+                                    {% for f in data['foremost'] %}
+                                    <tr>
+                                        <th><a class="custom-link" href="/file/{{ data['hashes']['SHA-1'] }}/{{ data['foremost'][f][0] }}">{{ f }}</a></th>
+                                        <td>{{ data['foremost'][f][1] }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
                             </section>
 
                             <div class="atitle">Sections</div>
