@@ -14,8 +14,8 @@ Step by step installation
             $ sudo apt install -y \
             git python3 python3-dev python3-pip python3-mysqldb \
             python3-setuptools python3-virtualenv \
-            automake libfuzzy-dev libssl-dev \
-            libffi-dev mariadb-server libmariadbclient-dev
+            mariadb-server libmariadbclient-dev \
+            libfuzzy-dev libssl-dev ssdeep
 
     .. group-tab:: Arch Linux
 
@@ -33,8 +33,8 @@ Step by step installation
             $ sudo dnf install -y \
             git python3 python3-devel python3-pip \
             python3-mysql python3-setuptools python3-virtualenv \
-            libffi-devel ssdeep-devel ssdeep-libs mariadb-server \
-            mariadb-devel
+            mariadb-server mariadb-devel ssdeep ssdeep-devel \
+            ssdeep-libs
 
 2. Create a database user for Freki
 ***********************************
