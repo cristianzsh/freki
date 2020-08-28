@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/font-awesome.css') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='imgs/logos/light.svg') }}">
+    <title>
+        {% block title %}Project Freki{% endblock %}
+    </title>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg navbar-custom static-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img id="imglogo" src="{{ url_for('static', filename='imgs/logos/light_full.svg') }}" width="100%" height="50px">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Upload">
+                        <form action="/scan_file" method="POST" enctype="multipart/form-data">
+                            <div class="upload-icon">
+                                <label for="file-input"><i class="fa fa-upload"></i></label>
+                                <input id="file-input" name="file" type="file" onchange="form.submit()"/>
+                            </div>
+                        </form>
+                    </li>
+                    {% if not current_user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="/login" data-toggle="tooltip" data-placement="bottom" title="Login"><i class="fa fa-user-circle"></i></a></li>
+                        <li class="nav-item"><a class="nav-link" href="/signup" data-toggle="tooltip" data-placement="bottom" title="Sign Up"><i class="fa fa-user-plus"></i></a></li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="/profile" data-toggle="tooltip" data-placement="bottom" title="{{ current_user.username }}"><i class="fa fa-user-circle"></i></a></li>
+                        <li class="nav-item"><a class="nav-link" href="/logout" data-toggle="tooltip" data-placement="bottom" title="Logout"><i class="fa fa-sign-out-alt"></i></a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+{% block content %}
+
+{% endblock %}
+
+    <footer class="panel-footer mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h5>About Freki</h5>
+
+                    <p>Freki is a free and open-source malware analysis platform.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Links</h5>
+
+                    <ul>
+                        <li><a href="/api" target="_blank" class="custom-link">API</a></li>
+                        <li><a href="https://crhenr.github.io/freki" target="_blank" class="custom-link">Documentation</a></li>
+                        <li><a href="https://github.com/crhenr/freki" target="_blank" class="custom-link">GitHub</a></li>
+                        <li><a href="mailto:cristianmsbr@gmail.com" class="custom-link">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.5.1.slim.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+</body>
+</html>
