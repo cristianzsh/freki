@@ -7,6 +7,8 @@
 - New logo.
 - Wiki.
 - Sphinx documentation.
+- This changelog.
+- Foremost support.
 
 ### Changed
 - New web design framework: Bootstrap.
