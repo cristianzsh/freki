@@ -14,6 +14,7 @@
 - New web design framework: Bootstrap.
 - Improve the project structure.
 - Improve docker-compose.yml.
+- New ssdeep library: pydeep.
 
 
 ## [v1.0.0] (2020-08-15)
