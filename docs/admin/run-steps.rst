@@ -15,7 +15,7 @@ Step by step installation
             git python3 python3-dev python3-pip python3-mysqldb \
             python3-setuptools python3-virtualenv \
             mariadb-server libmariadbclient-dev \
-            libfuzzy-dev libssl-dev ssdeep
+            libfuzzy-dev libssl-dev ssdeep foremost
 
     .. group-tab:: Arch Linux
 
@@ -24,7 +24,7 @@ Step by step installation
             $ sudo pacman -S --noconfirm \
             git python3 python-pip mysql-python \
             python-setuptools python-virtualenv \
-            mariadb mariadb-libs ssdeep gcc automake
+            mariadb mariadb-libs ssdeep gcc automake foremost
 
     .. group-tab:: Fedora/RHEL
 
@@ -34,7 +34,7 @@ Step by step installation
             git python3 python3-devel python3-pip \
             python3-mysql python3-setuptools python3-virtualenv \
             mariadb-server mariadb-devel ssdeep ssdeep-devel \
-            ssdeep-libs
+            ssdeep-libs foremost
 
 2. Create a database user for Freki
 ***********************************
