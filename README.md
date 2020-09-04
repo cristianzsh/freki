@@ -3,6 +3,9 @@
 </p>
 
 <p align="center">
+    <a href="https://crhenr.github.io/freki">
+        <img src="https://img.shields.io/badge/-homepage-blue"/>
+    </a>
     <a href="https://www.python.org/">
         <img src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg"/>
     </a>
