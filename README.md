@@ -3,15 +3,16 @@
 </p>
 
 <p align="center">
-    <a href="https://crhenr.github.io/freki">
-        <img src="https://img.shields.io/badge/-homepage-blue"/>
-    </a>
     <a href="https://www.python.org/">
-        <img src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg"/>
+        <img src="https://img.shields.io/badge/python-3.x-blue?style=for-the-badge&logo=python"/>
     </a>
-    <a href="https://www.gnu.org/licenses/agpl-3.0.html">
-        <img src="https://img.shields.io/badge/License-AGPL%20v3-blue.svg"/>
+    <a href="https://www.codefactor.io/repository/github/crhenr/freki">
+        <img src="https://img.shields.io/codefactor/grade/github/crhenr/freki?style=for-the-badge"/>
     </a>
+    <a href="https://github.com/crhenr/freki/blob/master/LICENSE">
+        <img src="https://img.shields.io/github/license/crhenr/freki?style=for-the-badge"/>
+    </a>
+    <img src="https://img.shields.io/badge/OS-GNU%2FLinux-red?style=for-the-badge&logo=linux"/>
 </p>
 
 ---
