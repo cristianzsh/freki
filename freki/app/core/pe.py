@@ -164,6 +164,9 @@ class PE:
             dll_name = item.dll.decode()
             self.info["imports"][dll_name] = []
             for i in item.imports:
+                if not i.name:
+                    continue
+
                 self.info["imports"][dll_name].append({"name" : i.name.decode(),
                                                        "address" : hex(i.address)})
 
