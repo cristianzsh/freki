@@ -15,7 +15,7 @@
 - Improve the project structure.
 - Improve docker-compose.yml.
 - New ssdeep library: pydeep.
-
+- Fixed decode bug when uploading certain samples.
 
 ## [v1.0.0] (2020-08-15)
 ### Added
