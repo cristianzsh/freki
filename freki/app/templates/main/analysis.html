@@ -325,6 +325,7 @@
                                 <h5>{{ ', '.join(data['yara']) }}</h5>
                             </section>
 
+                            {% if data['foremost'] %}
                             <div class="atitle">Foremost</div>
                             <section class="col-md-6">
                                 <table class="table table-borderless custom-table table-hover table-responsive-lg">
@@ -344,6 +345,7 @@
                                     </tbody>
                                 </table>
                             </section>
+                            {% endif %}
 
                             <div class="atitle">Sections</div>
                             <section>
