@@ -46,7 +46,7 @@ Open an [issue](https://github.com/crhenr/freki/issues) to suggest new features.
 
 ## Demo
 
-Video demo: [https://youtu.be/AW4afoaogt0](https://youtu.be/brvNUPgw7ho).
+Video demo: [https://youtu.be/brvNUPgw7ho](https://youtu.be/brvNUPgw7ho).
 
 ## Running
 
