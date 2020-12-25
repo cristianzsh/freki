@@ -21,7 +21,7 @@ services:
         ipv4_address: 192.168.99.99
 
   db:
-    image: mysql:8.0.21
+    image: mysql:8.0.22
     container_name: freki_db
     restart: always
     command: "--default-authentication-plugin=mysql_native_password"
