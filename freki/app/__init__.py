@@ -43,11 +43,12 @@ app = Flask(__name__, template_folder="templates")
 app.wsgi_app = ProxyFix(app.wsgi_app)
 app.config.from_object("config.ProductionConfig")
 vt_master_key = app.config["VT_MASTER_KEY"]
+samples_dir = app.config["SAMPLES_DIR"]
 
 def create_freki_files():
     """Creates the samples folder and the database tables."""
 
-    Path(app.config["SAMPLES_DIR"]).mkdir(parents=True, exist_ok=True)
+    Path(samples_dir).mkdir(parents=True, exist_ok=True)
     db_uri = app.config["SQLALCHEMY_DATABASE_URI"]
 
     try:
@@ -136,13 +137,20 @@ def fetch_vt_data():
             if request_count > 4:
                 break
 
-            vt_detection = VirusTotal(reporter_key).report(sub.sha1)
-            if vt_detection["response_code"] != 1 and vt_master_key:
-                vt_detection = VirusTotal(vt_master_key).report(sub.sha1)
+            vt_detection, status_code = VirusTotal(reporter_key).report(sub.sha1)
+
+            # If the user key is invalid, try with the master key.
+            if status_code == 401:
+                vt_detection, status_code = VirusTotal(vt_master_key).report(sub.sha1)
+
+            # Send the sample for analysis if it does not exist.
+            if status_code == 404:
+                sample = open("{0}/{1}/{1}".format(samples_dir, sub.sha1), "rb").read()
+                vt_detection, status_code = VirusTotal(vt_master_key).detection(sample)
 
             request_count += 1
 
-            if vt_detection["response_code"] == 1:
+            if vt_detection:
                 new_data = json.loads(sub.data)
                 new_data["virustotal_detection"] = vt_detection
 

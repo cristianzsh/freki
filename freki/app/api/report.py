@@ -112,9 +112,9 @@ class FullScan(Resource):
         # Get the VirusTotal report if it exists, else
         # send the file to analysis.
         virustotal = VirusTotal(user.vt_key)
-        virustotal_detection = virustotal.report(sha1)
-        if virustotal_detection["response_code"] == 0:
-            virustotal_detection = virustotal.detection(contents)
+        virustotal_detection, _ = virustotal.report(sha1)
+        if not virustotal_detection:
+            virustotal_detection, _ = virustotal.detection(contents)
 
         # Get hashes and basic information.
         hashes = Hashes(contents).get_all()

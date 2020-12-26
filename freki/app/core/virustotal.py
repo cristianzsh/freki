@@ -30,6 +30,9 @@ class VirusTotal():
         """
 
         self.key = key
+        self.scan_url = "https://www.virustotal.com/api/v3/files"
+        self.report_url = "https://www.virustotal.com/api/v3/files/{}"
+        self.headers = {"X-Apikey" : self.key}
 
     def detection(self, stream):
         """Sends the file to VirusTotal detection.
@@ -41,19 +44,14 @@ class VirusTotal():
             The VirusTotal response or an error if the request limit is reached.
         """
 
-        scan_url = "https://www.virustotal.com/vtapi/v2/file/scan"
-        scan_params = {"apikey" : self.key}
         files = {"file": stream}
-        response = requests.post(scan_url, files=files, params=scan_params)
+        response = requests.post(self.scan_url, files=files, headers=self.headers)
+        print(response.status_code)
 
-        if response.status_code == 403:
-            return {"verbose_msg" : "Invalid key!", "response_code" : -1}
+        if response.status_code != 200:
+            return False, response.status_code
 
-        if response.status_code == 204:
-            return {"verbose_msg" : "You have exceeded your VirusTotal request quota!",
-                    "response_code" : -1}
-
-        return response.json()
+        return response.json(), response.status_code
 
     def report(self, scan_id):
         """Gets an existing VirusTotal report.
@@ -64,16 +62,15 @@ class VirusTotal():
         Returns:
             The VirusTotal response or an error if the request limit is reached.
         """
+        self.report_url = self.report_url.format(scan_id)
+        response = requests.get(self.report_url, headers=self.headers)
 
-        report_url = "https://www.virustotal.com/vtapi/v2/file/report"
-        report_params = {"apikey" : self.key, "resource" : scan_id}
-        response = requests.get(report_url, params=report_params)
+        if response.status_code != 200:
+            return False, response.status_code
 
-        if response.status_code == 403:
-            return {"verbose_msg" : "Invalid key!", "response_code" : -1}
+        response = response.json()
 
-        if response.status_code == 204:
-            return {"verbose_msg" : "You have exceeded your VirusTotal request quota!",
-                    "response_code" : -1}
+        if not response["data"]["attributes"]["last_analysis_results"]:
+            return False, 0
 
-        return response.json()
+        return response, 200

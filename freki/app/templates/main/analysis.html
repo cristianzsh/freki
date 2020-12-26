@@ -76,12 +76,13 @@
                     </div>
 
                     <div class="tab-pane fade" id="nav-detection" role="tabpanel" aria-labelledby="nav-detection-tab">
-                        {% if data['virustotal_detection']['verbose_msg'] == 'Scan finished, information embedded' %}
+                        {% if data['virustotal_detection'] %}
                             <div class="atitle">VirusTotal results</div>
                             <section>
-                                <b>Positives:</b> {{ data['virustotal_detection']['positives'] }}<br/>
-                                <b>Scan date:</b> {{ data['virustotal_detection']['scan_date'] }}
-                                <p><b>Permanent link:</b> <a target="_blank" href="{{ data['virustotal_detection']['permalink'] }}" class="custom-link">{{ data['virustotal_detection']['permalink'] }}</a></p>
+                                <b>Positives:</b> {{ data['virustotal_detection']['data']['attributes']['last_analysis_stats']['malicious'] }}<br/>
+                                <b>First submission date:</b> {{ data['virustotal_detection']['data']['attributes']['first_submission_date'] }}<br/>
+                                <b>Last scan date:</b> {{ data['virustotal_detection']['data']['attributes']['last_analysis_date'] }}<br/>
+                                <p><b>Permanent link:</b> <a target="_blank" href="https://www.virustotal.com/gui/file/{{ data['hashes']['SHA-1'] }}" class="custom-link">https://www.virustotal.com/gui/file/{{ data['hashes']['SHA-1'] }}</a></p>
                             </section>
 
                             <table class="table table-borderless custom-table table-hover table-responsive-lg">
@@ -95,20 +96,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for key in data['virustotal_detection']['scans'] %}
-                                    <tr>
-                                        <td>{{ key }}</td>
+                                    {% for key, values in data['virustotal_detection']['data']['attributes']['last_analysis_results'].items() %}
+                                        <tr>
+                                            <td>{{ key }}</td>
 
-                                        {% if data['virustotal_detection']['scans'][key]['detected'] == True %}
-                                            <td><b class="custom-warning">{{ data['virustotal_detection']['scans'][key]['detected'] }}</b></td>
-                                            <td><b class="custom-warning">{{ data['virustotal_detection']['scans'][key]['result'] }}</b></td>
-                                        {% else %}
-                                            <td>{{ data['virustotal_detection']['scans'][key]['detected'] }}</td>
-                                            <td>{{ data['virustotal_detection']['scans'][key]['result'] }}</td>
-                                        {% endif %}
-                                        <td>{{ data['virustotal_detection']['scans'][key]['version'] }}</td>
-                                        <td>{{ data['virustotal_detection']['scans'][key]['update'] }}</td>
-                                    </tr>
+                                            {% if values['category'] == 'malicious' %}
+                                                <td><b class="custom-warning">True</b></td>
+                                                <td><b class="custom-warning">{{ values['result'] }}</b></td>
+                                            {% else %}
+                                                <td>False</td>
+                                                <td>{{ values['category'] }}</td>
+                                            {% endif %}
+                                            <td>{{ values['engine_version'] }}</td>
+                                            <td>{{ values['engine_update'] }}</td>
+                                        </tr>
                                     {% endfor %}
                                 </tbody>
                             </table>

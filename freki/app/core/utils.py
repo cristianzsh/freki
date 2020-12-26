@@ -78,7 +78,7 @@ def save_submission(data, user_id):
     """Inserts a new submission in the database."""
 
     vt_analyzed = False
-    if data["virustotal_detection"]["verbose_msg"] == "Scan finished, information embedded":
+    if data["virustotal_detection"]:
         vt_analyzed = True
 
     new_submission = Submission(sha1=data["hashes"]["SHA-1"],
