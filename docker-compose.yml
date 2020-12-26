@@ -21,10 +21,9 @@ services:
         ipv4_address: 192.168.99.99
 
   db:
-    image: mysql:8.0.22
+    build: ./docker/mariadb
     container_name: freki_db
     restart: always
-    command: "--default-authentication-plugin=mysql_native_password"
     expose:
       - 3306
     environment:
@@ -37,14 +36,14 @@ services:
         ipv4_address: 192.168.99.98
 
   nginx:
-    build: ./nginx
+    build: ./docker/nginx
     container_name: freki_nginx
     restart: always
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx/certs:/etc/nginx/certs
+      - ./docker/nginx/certs:/etc/nginx/certs
     depends_on:
       - freki
     networks:
