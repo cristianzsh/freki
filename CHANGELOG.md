@@ -16,6 +16,7 @@
 - Improve docker-compose.yml.
 - New ssdeep library: pydeep.
 - Fixed decode bug when uploading certain samples.
+- Custom and smaller MariaDB image using Alpine Linux.
 
 ## [v1.0.0] (2020-08-15)
 ### Added
