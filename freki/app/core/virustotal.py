@@ -17,6 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+from datetime import datetime
 import requests
 
 class VirusTotal():
@@ -72,5 +73,14 @@ class VirusTotal():
 
         if not response["data"]["attributes"]["last_analysis_results"]:
             return False, 0
+
+        first_formatted = response["data"]["attributes"]["first_submission_date"]
+        last_formatted = response["data"]["attributes"]["last_analysis_date"]
+
+        first_formatted = datetime.utcfromtimestamp(first_formatted).strftime("%Y-%m-%d %H:%M:%S")
+        last_formatted = datetime.utcfromtimestamp(last_formatted).strftime("%Y-%m-%d %H:%M:%S")
+
+        response["data"]["attributes"]["first_submission_date"] = first_formatted
+        response["data"]["attributes"]["last_analysis_date"] = last_formatted
 
         return response, 200
