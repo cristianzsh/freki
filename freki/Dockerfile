@@ -2,9 +2,10 @@ FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt update && apt install -y python3 python3-dev python3-pip automake \
-                                 libfuzzy-dev python3-mysqldb libssl-dev libffi-dev \
-                                 python3-setuptools mariadb-client foremost
+RUN apt-get update && apt-get install -y python3 python3-dev python3-pip automake \
+                                         libfuzzy-dev python3-mysqldb libssl-dev libffi-dev \
+                                         python3-setuptools mariadb-client foremost \
+            && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /freki
 COPY . /freki
