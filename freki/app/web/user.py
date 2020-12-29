@@ -37,15 +37,18 @@ def validate_password(password):
     """Validates a password."""
 
     if len(password) < 8:
-        flash("Make sure your password is at lest 8 letters.")
+        flash("Make sure your password is at least 8 characters.")
         return False
-    elif re.search("[0-9]", password) is None:
+
+    if re.search("[0-9]", password) is None:
         flash("Make sure your password has a number in it.")
         return False
-    elif re.search("[a-z]", password) is None:
+
+    if re.search("[a-z]", password) is None:
         flash("Make sure your password has a letter in it.")
         return False
-    elif re.search("[A-Z]", password) is None:
+
+    if re.search("[A-Z]", password) is None:
         flash("Make sure your password has a capital letter in it.")
         return False
 

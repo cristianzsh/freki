@@ -28,7 +28,7 @@ class Foremost():
 
         save_path = _file.split("/")
         save_path = "/".join(save_path[:-1]) + "/foremost"
-        foremost = subprocess.run(["foremost", _file, "-o", save_path])
+        foremost = subprocess.run(["/usr/bin/foremost", _file, "-o", save_path])
 
         if foremost.returncode != 0:
             return False
