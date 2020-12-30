@@ -17,6 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+from subprocess import CalledProcessError
+from pefile import PEFormatError
 from flask_restplus import Resource
 
 from app.core.utils import save_file
@@ -41,7 +43,7 @@ class PEAll(Resource):
 
         try:
             return PE(get_bytes()).get_all(), 200
-        except:
+        except PEFormatError:
             return {"message" : "Invalid file type!"}, 406
 
 @ns_pe.route("/summary", methods=["POST"])
@@ -56,7 +58,7 @@ class PESummary(Resource):
 
         try:
             return PE(get_bytes()).get_summary(), 200
-        except:
+        except PEFormatError:
             return {"message" : "Invalid file type!"}, 406
 
 @ns_pe.route("/file_header", methods=["POST"])
@@ -71,7 +73,7 @@ class PEFileHeader(Resource):
 
         try:
             return PE(get_bytes()).get_file_header(), 200
-        except:
+        except PEFormatError:
             return {"message" : "Invalid file type!"}, 406
 
 @ns_pe.route("/dos_header", methods=["POST"])
@@ -86,7 +88,7 @@ class PEDOSHeader(Resource):
 
         try:
             return PE(get_bytes()).get_dos_header(), 200
-        except:
+        except PEFormatError:
             return {"message" : "Invalid file type!"}, 406
 
 @ns_pe.route("/optional_header", methods=["POST"])
@@ -101,7 +103,7 @@ class PEOptionalHeader(Resource):
 
         try:
             return PE(get_bytes()).get_optional_header(), 200
-        except:
+        except PEFormatError:
             return {"message" : "Invalid file type!"}, 406
 
 @ns_pe.route("/sections", methods=["POST"])
@@ -116,7 +118,7 @@ class PESections(Resource):
 
         try:
             return PE(get_bytes()).get_sections(), 200
-        except:
+        except PEFormatError:
             return {"message" : "Invalid file type!"}, 406
 
 @ns_pe.route("/imports", methods=["POST"])
@@ -131,7 +133,7 @@ class PEImports(Resource):
 
         try:
             return PE(get_bytes()).get_imports(), 200
-        except:
+        except PEFormatError:
             return {"message" : "Invalid file type!"}, 406
 
 @ns_pe.route("/capabilities", methods=["POST"])
@@ -153,5 +155,5 @@ class Capabilities(Resource):
 
         try:
             return Capa().analyze(file_location), 200
-        except:
+        except CalledProcessError:
             return {"message" : "Invalid file type!"}, 406
