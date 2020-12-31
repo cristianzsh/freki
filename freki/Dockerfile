@@ -10,14 +10,7 @@ RUN apt-get update && apt-get install -y python3 python3-dev python3-pip automak
 WORKDIR /freki
 COPY . /freki
 
-RUN echo "#!/bin/sh\n" \
-         "while ! mysqladmin ping -h\"db\" -P\"3306\" --silent; do\n" \
-         "    echo \"Waiting for MySQL to be up...\"\n" \
-         "    sleep 1\n" \
-         "done\n" \
-         "sleep 3\n" \
-         "echo \"Starting Freki...\"\n" \
-         "exit 0\n" > /freki/wait_for_mysql.sh
+RUN printf "#!/bin/sh\nwhile ! mysqladmin ping -h\"db\" -P\"3306\" --silent; do\n\techo \"Waiting for MySQL to be up...\"\n\tsleep 1\ndone\nsleep 3\necho \"Starting Freki...\"\nexit 0" > /freki/wait_for_mysql.sh
 
 RUN chmod +x /freki/wait_for_mysql.sh
 
