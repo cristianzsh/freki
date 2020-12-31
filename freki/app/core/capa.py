@@ -39,7 +39,7 @@ class Capa():
                 data_parsed[k] = {"namespace" : capa_data["rules"][k]["meta"]["namespace"],
                                   "scope" : capa_data["rules"][k]["meta"]["scope"],
                                   "matches" : self.get_list(capa_data["rules"][k]["matches"])}
-            except:
+            except KeyError:
                 pass
 
         return data_parsed
