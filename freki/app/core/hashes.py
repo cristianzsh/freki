@@ -45,7 +45,7 @@ class Hashes():
     def get_md5(file_bytes):
         """Returns the MD5 hash."""
 
-        md5_hash = hashlib.md5()
+        md5_hash = hashlib.md5() # nosec
         md5_hash.update(file_bytes)
 
         return md5_hash.hexdigest()
@@ -54,7 +54,7 @@ class Hashes():
     def get_sha1(file_bytes):
         """Returns the SHA-1 hash."""
 
-        sha1_hash = hashlib.sha1()
+        sha1_hash = hashlib.sha1() # nosec
         sha1_hash.update(file_bytes)
 
         return sha1_hash.hexdigest()
