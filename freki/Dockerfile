@@ -2,6 +2,7 @@ FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND noninteractive
 
+# hadolint ignore=DL3015
 RUN apt-get update && apt-get install -y python3 python3-dev python3-pip automake \
                                          libfuzzy-dev python3-mysqldb libssl-dev libffi-dev \
                                          python3-setuptools mariadb-client foremost \
