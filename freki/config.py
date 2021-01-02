@@ -19,7 +19,7 @@
 
 from os import environ
 
-class Config(object):
+class Config():
     """Base config."""
 
     DEBUG = False
