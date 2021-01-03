@@ -19,7 +19,7 @@
 
 from os import environ
 
-class Config():
+class Config(): # pylint: disable=R0903
     """Base config."""
 
     DEBUG = False
@@ -36,19 +36,19 @@ class Config():
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = "mysql://freki:{}@{}/freki".format(DB_PASSWORD, DB_SERVER)
 
-class ProductionConfig(Config):
+class ProductionConfig(Config): # pylint: disable=R0903
     """Production config."""
 
     DEBUG = False
 
-class DevelopmentConfig(Config):
+class DevelopmentConfig(Config): # pylint: disable=R0903
     """Development config."""
 
     DEVELOPMENT = True
     DEBUG = True
     ENV = "development"
 
-class TestingConfig(Config):
+class TestingConfig(Config): # pylint: disable=R0903
     """Testing config."""
 
     TESTING = True
