@@ -59,6 +59,25 @@ Video demo: [https://youtu.be/brvNUPgw7ho](https://youtu.be/brvNUPgw7ho).
 #### Other ways
 If you want to use it locally (e.g., for development), please check our [online documentation](https://crhenr.github.io/freki) for more details.
 
+## How to cite this work
+
+Freki was presented at the XXI Brazilian Symposium on Information and Computational Systems Security (SBSeg 2021).
+
+```
+@inproceedings{sbseg_estendido,
+ author = {Cristian Souza and Felipe Silva},
+ title = {Freki: Uma Ferramenta para Análise Automatizada de Malware},
+ booktitle = {Anais do XXI Simpósio Brasileiro em Segurança da Informação e de Sistemas Computacionais},
+ location = {Evento Online},
+ year = {2021},
+ pages = {58--65},
+ publisher = {SBC},
+ address = {Porto Alegre, RS, Brasil},
+ doi = {10.5753/sbseg_estendido.2021.17340},
+ url = {https://sol.sbc.org.br/index.php/sbseg_estendido/article/view/17340}
+}
+```
+
 ## License
 
 This project is licensed under the GNU Affero General Public License.
