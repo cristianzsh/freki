@@ -6,11 +6,11 @@
     <a href="https://www.python.org/">
         <img src="https://img.shields.io/badge/python-3.x-blue?style=for-the-badge&logo=python"/>
     </a>
-    <a href="https://www.codefactor.io/repository/github/crhenr/freki">
-        <img src="https://img.shields.io/codefactor/grade/github/crhenr/freki?style=for-the-badge"/>
+    <a href="https://www.codefactor.io/repository/github/cristianzsh/freki">
+        <img src="https://img.shields.io/codefactor/grade/github/cristianzsh/freki?style=for-the-badge"/>
     </a>
-    <a href="https://github.com/crhenr/freki/blob/master/LICENSE">
-        <img src="https://img.shields.io/github/license/crhenr/freki?style=for-the-badge"/>
+    <a href="https://github.com/cristianzsh/freki/blob/master/LICENSE">
+        <img src="https://img.shields.io/github/license/cristianzsh/freki?style=for-the-badge"/>
     </a>
     <img src="https://img.shields.io/badge/OS-GNU%2FLinux-red?style=for-the-badge&logo=linux"/>
 </p>
@@ -37,12 +37,12 @@ Freki is a free and open-source malware analysis platform.
 - Community comments.
 - Download samples.
 
-Check our [online documentation](https://crhenr.github.io/freki) for more details.
+Check our [online documentation](https://cristianzsh.github.io/freki) for more details.
 
-Open an [issue](https://github.com/crhenr/freki/issues) to suggest new features. All contributions are welcome.
+Open an [issue](https://github.com/cristianzsh/freki/issues) to suggest new features. All contributions are welcome.
 
 ## How to get the source code
-`git clone https://github.com/crhenr/freki.git`
+`git clone https://github.com/cristianzsh/freki.git`
 
 ## Demo
 
@@ -57,7 +57,7 @@ Video demo: [https://youtu.be/brvNUPgw7ho](https://youtu.be/brvNUPgw7ho).
 4. Run `docker-compose up` or `make`.
 
 #### Other ways
-If you want to use it locally (e.g., for development), please check our [online documentation](https://crhenr.github.io/freki) for more details.
+If you want to use it locally (e.g., for development), please check our [online documentation](https://cristianzsh.github.io/freki) for more details.
 
 ## How to cite this work
 
