@@ -36,7 +36,7 @@ class User(Base, UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), unique=True, nullable=False)
     username = db.Column(db.String(50), unique=True, nullable=False)
-    password = db.Column(db.String(80), nullable=False)
+    password = db.Column(db.String(90), nullable=False)
     vt_key = db.Column(db.String(64), nullable=True)
     freki_key = db.Column(db.String(255), nullable=False)
 

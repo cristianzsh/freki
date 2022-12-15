@@ -19,7 +19,7 @@
 
 from subprocess import CalledProcessError
 from pefile import PEFormatError
-from flask_restplus import Resource
+from flask_restx import Resource
 
 from app.core.utils import save_file
 from app.core.pe import PE

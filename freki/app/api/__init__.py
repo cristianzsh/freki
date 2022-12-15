@@ -22,7 +22,7 @@ import random
 from functools import wraps
 from flask import Blueprint, request
 from werkzeug.datastructures import FileStorage
-from flask_restplus import Api
+from flask_restx import Api
 
 from app import db
 from app.models import User

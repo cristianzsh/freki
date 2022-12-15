@@ -17,7 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from flask_restplus import Resource
+from flask_restx import Resource
 
 from app.core.yaraanalysis import YaraAnalysis
 from app.core.hashes import Hashes

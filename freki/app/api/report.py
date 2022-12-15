@@ -19,7 +19,7 @@
 
 import json
 
-from flask_restplus import Resource
+from flask_restx import Resource
 from flask import request, send_from_directory
 
 try:

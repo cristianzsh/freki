@@ -17,8 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from flask_restplus import Resource
-from werkzeug import check_password_hash
+from flask_restx import Resource
+from werkzeug.security import check_password_hash
 
 from app.models import User
 

@@ -30,7 +30,7 @@ from flask_login import LoginManager
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from werkzeug.exceptions import RequestEntityTooLarge
-from werkzeug.contrib.fixers import ProxyFix
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 from sqlalchemy import create_engine
 from sqlalchemy.exc import OperationalError
