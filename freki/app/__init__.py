@@ -56,9 +56,6 @@ def create_freki_files():
         if not database_exists(db_uri):
             create_database(db_uri)
 
-        from .models import create_tables
-        create_tables(engine)
-
         print("[*] Database status: Connected successfully!")
     except OperationalError as error:
         print("[!] Could not connect to the database!\n\nCurrent settings:")
@@ -118,6 +115,8 @@ def configure_app():
         return redirect(url_for("web.index")), 413
 
     db.init_app(app)
+    with app.app_context():
+        db.create_all()
 
     return app
 
