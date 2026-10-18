@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "Freki"
+abstract: "A tool for automated malware analysis."
+authors:
+  - family-names: "Souza"
+    given-names: "Cristian"
+    orcid: "https://orcid.org/0000-0002-2395-9930"
+  - family-names: "Silva"
+    given-names: "Felipe"
+repository-code: "https://github.com/cristianzsh/freki"
+license: AGPL-3.0
+preferred-citation:
+  type: conference-paper
+  title: "Freki: Uma Ferramenta para Análise Automatizada de Malware"
+  authors:
+    - family-names: "Souza"
+      given-names: "Cristian"
+      orcid: "https://orcid.org/0000-0002-2395-9930"
+    - family-names: "Silva"
+      given-names: "Felipe"
+  collection-title: "Anais do XXI Simpósio Brasileiro em Segurança da Informação e de Sistemas Computacionais"
+  conference:
+    name: "XXI Simpósio Brasileiro em Segurança da Informação e de Sistemas Computacionais (SBSeg)"
+    location: "Evento Online"
+  publisher:
+    name: "SBC"
+    city: "Porto Alegre"
+    region: "RS"
+    country: "BR"
+  year: 2021
+  start: 58
+  end: 65
+  doi: "10.5753/sbseg_estendido.2021.17340"
+  url: "https://sol.sbc.org.br/index.php/sbseg_estendido/article/view/17340"
+
